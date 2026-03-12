@@ -1,0 +1,51 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper, margin=0.4in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+
+% Compress spacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\titlespacing*{\section}{0pt}{3pt}{1pt}
+
+\title{\textbf{WorkRightsAI: A Responsible GenAI Assistant for Workplace Rights in Pakistan}}
+\date{}
+
+\begin{document}
+
+\maketitle
+\vspace{-10pt}
+
+\section*{Project Name}
+\textbf{WorkRightsAI – Workplace Rights Assistant}
+
+\section*{Team Members}
+Shifa Shah, Muneeba Badar
+
+\section*{1-Line Description}
+AI assistant for workplace rights in Pakistan.
+
+\section*{Abstract}
+WorkRightsAI is a responsible RAG assistant providing citation-backed explanations of employment rights in Pakistan, covering minimum wage, working hours, termination, harassment regulations, and due process. Responses are grounded in official legal texts with citations to ensure transparency and reduce hallucination. The system refuses personalized legal advice and clearly communicates limitations, exploring safe AI deployment in high-stakes civic domains through safety constraints, transparency mechanisms, and structured evaluation.
+
+\section*{Target User}
+WorkRightsAI is designed for people across Pakistan’s workforce who may not clearly understand their workplace rights. This includes employees in private and public organizations, factory and service-sector workers, daily wage earners, and individuals working in informal or contract-based jobs. Many workers face low wages, job insecurity, or unclear employment terms, but legal information is often difficult to access or written in complex language. By providing simple, citation-backed explanations of labor laws, the system aims to make workplace rights easier to understand and more accessible to anyone earning a living in Pakistan.
+
+\section*{Schedule + Milestones (11 Weeks)}
+\vspace{12pt}
+\begin{enumerate}[leftmargin=*, itemsep=0pt, topsep=1pt]
+\item \textbf{Week 1 – Problem Definition and Scope Finalization:} Define legal coverage (minimum wage, working hours, termination rules, harassment protections). Finalize system boundaries and non-advisory policy.
+\item \textbf{Week 2 – Legal Corpus Collection:} Gather official labor laws, constitutional provisions, and policy documents. Organize and clean documents.
+\item \textbf{Week 3 – Data Processing:} Structure documents and implement appropriate chunking strategy for legal text.
+\item \textbf{Week 4 – Retrieval Implementation:} Generate embeddings and implement vector search. Evaluate retrieval relevance.
+\item \textbf{Week 5 – LLM Integration (RAG Pipeline):} Integrate LLM (Llama/Gemini). Constrain outputs to retrieved context and enforce citation requirements.
+\item \textbf{Week 6 – Safety and Refusal Mechanisms:} Implement detection of advice-seeking queries. Add refusal responses and limitation disclaimers.
+\item \textbf{Week 7 – Interface Development:} Develop a simple web interface for user interaction and structured output display.
+\item \textbf{Week 8 – Evaluation Framework Design:} Create benchmark test questions and define evaluation metrics (accuracy, hallucination rate, citation correctness, refusal precision/recall).
+\item \textbf{Week 9 – Quantitative Evaluation:} Conduct systematic evaluation and record performance metrics.
+\item \textbf{Week 10 – Error Analysis and Refinement:} Analyze failure cases, improve retrieval or prompting, and refine safety logic.
+\item \textbf{Week 11 – Final Documentation and Demo Preparation:} Prepare final report, system documentation, and presentation demonstrating responsible AI design.
+\end{enumerate}
+
+\end{document}
