@@ -3,6 +3,7 @@ from sentence_transformers import SentenceTransformer
 from groq import Groq
 from dotenv import load_dotenv
 import os
+from guardrails import check_input, check_output  # Import guardrail functions
 
 # load variables from .env
 load_dotenv()
@@ -106,6 +107,10 @@ Please answer the question based strictly on the above legal provisions."""
         "content": user_message
     })
     
+    # Pre-check
+    status, message = check_input(query)
+    if status in ("off_topic", "harmful"):
+        return message
    
     client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
@@ -124,8 +129,12 @@ Please answer the question based strictly on the above legal provisions."""
         "role": "assistant",
         "content": answer
     })
+
+    response, issues = check_output(response)
+    if issues:
+        print(f"[GUARDRAIL FLAGS]: {issues}")  # Log for monitoring
     
-    return answer, conversation_history
+    return answer
 
 def run_chatbot():
     print("=" * 60)
