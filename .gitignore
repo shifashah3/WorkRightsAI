@@ -1,2 +1,5 @@
 .env 
 Work Rights AI frontend/node_modules
+__pycache__/
+*.pyc
+proposal/

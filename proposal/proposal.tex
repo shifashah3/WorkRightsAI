@@ -24,27 +24,39 @@
 Shifa Shah, Muneeba Badar
 
 \section*{1-Line Description}
-AI assistant for workplace rights in Pakistan.
+AI assistant for province-aware workplace rights in Pakistan, with guardrails, structured evaluation, and an interactive web frontend.
 
 \section*{Abstract}
-WorkRightsAI is a responsible RAG assistant providing citation-backed explanations of employment rights in Pakistan, covering minimum wage, working hours, termination, harassment regulations, and due process. Responses are grounded in official legal texts with citations to ensure transparency and reduce hallucination. The system refuses personalized legal advice and clearly communicates limitations, exploring safe AI deployment in high-stakes civic domains through safety constraints, transparency mechanisms, and structured evaluation.
+WorkRightsAI is a responsible RAG assistant providing citation-backed explanations of employment rights in Pakistan, covering minimum wage, working hours, termination, harassment regulations, and due process. The system is province-aware, distinguishing between federal laws and provincial legislation across Punjab, Sindh, KPK, and Balochistan, allowing queries to be answered with jurisdiction-specific legal references. Responses are grounded in official legal texts with inline citations to ensure transparency and reduce hallucination. A multi-layer guardrail system handles input filtering (off-topic, adversarial, and harmful queries), output validation (disclaimer injection and hallucination flagging), and refusal of personalized legal advice. The system is evaluated using a structured evaluation set with metrics including citation correctness, fact coverage, refusal precision, and disclaimer presence. A React-based frontend provides an interactive interface for users. The project explores safe AI deployment in high-stakes civic domains through safety constraints, transparency mechanisms, and structured evaluation.
 
 \section*{Target User}
-WorkRightsAI is designed for people across Pakistan’s workforce who may not clearly understand their workplace rights. This includes employees in private and public organizations, factory and service-sector workers, daily wage earners, and individuals working in informal or contract-based jobs. Many workers face low wages, job insecurity, or unclear employment terms, but legal information is often difficult to access or written in complex language. By providing simple, citation-backed explanations of labor laws, the system aims to make workplace rights easier to understand and more accessible to anyone earning a living in Pakistan.
+WorkRightsAI is designed for people across Pakistan's workforce who may not clearly understand their workplace rights. This includes employees in private and public organizations, factory and service-sector workers, daily wage earners, and individuals working in informal or contract-based jobs. Many workers face low wages, job insecurity, or unclear employment terms, but legal information is often difficult to access or written in complex language. By providing simple, citation-backed, province-specific explanations of labor laws, the system aims to make workplace rights easier to understand and more accessible to anyone earning a living in Pakistan.
+
+\section*{System Components}
+
+\begin{enumerate}[leftmargin=*, itemsep=0pt, topsep=1pt]
+\item \textbf{Province-Aware RAG Pipeline:} Legal corpus is organized by jurisdiction (Federal, Punjab, Sindh, KPK, Balochistan). User queries include an optional province parameter, and retrieval is filtered to return jurisdiction-relevant chunks first, falling back to federal law when provincial data is unavailable.
+
+\item \textbf{Guardrail System:} A two-stage guardrail pipeline operates on both input and output. Input guardrails classify queries as \textit{ok}, \textit{off\_topic}, \textit{harmful}, or \textit{personal\_advice} using keyword and pattern matching. Harmful and adversarial inputs (e.g., prompt injection attempts, requests to exploit labour laws) are refused immediately without reaching the LLM. Output guardrails inject disclaimers if absent and flag responses containing years outside the valid legal corpus range.
+
+\item \textbf{Evaluation Framework:} A structured \texttt{eval\_set.json} contains labelled test cases across categories: factual, adversarial, off-topic, province-specific, and personal advice. Each item specifies expected law, expected facts, and whether refusal is correct. Scoring covers citation presence, correct law cited, fact coverage, correct refusal, and disclaimer presence, with an overall weighted average.
+
+\item \textbf{React Frontend:} A React-based web interface allows users to enter queries, optionally select their province, and receive structured responses with highlighted legal citations. The interface displays disclaimer notices and refusal messages clearly.
+\end{enumerate}
 
 \section*{Schedule + Milestones (11 Weeks)}
 \vspace{12pt}
 \begin{enumerate}[leftmargin=*, itemsep=0pt, topsep=1pt]
-\item \textbf{Week 1 – Problem Definition and Scope Finalization:} Define legal coverage (minimum wage, working hours, termination rules, harassment protections). Finalize system boundaries and non-advisory policy.
-\item \textbf{Week 2 – Legal Corpus Collection:} Gather official labor laws, constitutional provisions, and policy documents. Organize and clean documents.
-\item \textbf{Week 3 – Data Processing:} Structure documents and implement appropriate chunking strategy for legal text.
-\item \textbf{Week 4 – Retrieval Implementation:} Generate embeddings and implement vector search. Evaluate retrieval relevance.
-\item \textbf{Week 5 – LLM Integration (RAG Pipeline):} Integrate LLM (Llama/Gemini). Constrain outputs to retrieved context and enforce citation requirements.
-\item \textbf{Week 6 – Safety and Refusal Mechanisms:} Implement detection of advice-seeking queries. Add refusal responses and limitation disclaimers.
-\item \textbf{Week 7 – Interface Development:} Develop a simple web interface for user interaction and structured output display.
-\item \textbf{Week 8 – Evaluation Framework Design:} Create benchmark test questions and define evaluation metrics (accuracy, hallucination rate, citation correctness, refusal precision/recall).
-\item \textbf{Week 9 – Quantitative Evaluation:} Conduct systematic evaluation and record performance metrics.
-\item \textbf{Week 10 – Error Analysis and Refinement:} Analyze failure cases, improve retrieval or prompting, and refine safety logic.
+\item \textbf{Week 1 – Problem Definition and Scope Finalization:} Define legal coverage (minimum wage, working hours, termination rules, harassment protections). Finalize system boundaries, province scope, and non-advisory policy.
+\item \textbf{Week 2 – Legal Corpus Collection:} Gather official federal and provincial labor laws, constitutional provisions, and policy documents. Organize by jurisdiction and clean documents.
+\item \textbf{Week 3 – Data Processing:} Structure documents with province metadata and implement appropriate chunking strategy for legal text.
+\item \textbf{Week 4 – Retrieval Implementation:} Generate embeddings and implement province-filtered vector search. Evaluate retrieval relevance per jurisdiction.
+\item \textbf{Week 5 – LLM Integration (RAG Pipeline):} Integrate LLM (Llama via Groq). Constrain outputs to retrieved context, enforce citation requirements, and pass province context in prompts.
+\item \textbf{Week 6 – Guardrail Implementation:} Implement input guardrails for off-topic, adversarial, and harmful query detection. Add output guardrails for disclaimer injection and hallucination flagging.
+\item \textbf{Week 7 – React Frontend Development:} Develop a React web interface with province selector, citation rendering, disclaimer display, and refusal message handling.
+\item \textbf{Week 8 – Evaluation Framework Design:} Build \texttt{eval\_set.json} with labelled test cases across all categories. Define scoring functions for citation, facts, refusal, and disclaimer metrics.
+\item \textbf{Week 9 – Quantitative Evaluation:} Run \texttt{evaluate.py} across the full eval set, record per-category scores, and generate \texttt{eval\_results.json}.
+\item \textbf{Week 10 – Error Analysis and Refinement:} Analyze failure cases, improve retrieval or prompting, refine guardrail patterns, and re-evaluate.
 \item \textbf{Week 11 – Final Documentation and Demo Preparation:} Prepare final report, system documentation, and presentation demonstrating responsible AI design.
 \end{enumerate}
 
