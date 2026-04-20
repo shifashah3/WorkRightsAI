@@ -180,7 +180,7 @@ def get_models():
     return [
         RAGModel(),
         GroqModel("llama-3.3-70b-versatile"),   # baseline: same base model, no RAG
-        GroqModel("gemma2-9b-it"),               # smaller open model
-        GeminiModel("gemini-1.5-flash"),         # Google free tier
+        GroqModel("llama-3.1-8b-instant"),               # smaller open model
+        GeminiModel("gemini-2.5-flash"),         # Google free tier
         # TogetherModel(),                       # uncomment if you have Together key
     ]
