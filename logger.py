@@ -1,7 +1,7 @@
-# logger.py
 import json
 import os
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 LOG_FILE = "logs/interactions.jsonl"
 
@@ -20,7 +20,7 @@ def log_interaction(
     response_time_ms=None
 ):
     entry = {
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(ZoneInfo("Asia/Karachi")).isoformat(),
         "query": query,
         "province": province,
         "guardrail_status": guardrail_status,
@@ -31,6 +31,6 @@ def log_interaction(
         "response_time_ms": response_time_ms,
         "response": response
     }
-    
+
     with open(LOG_FILE, "a", encoding="utf-8") as f:
         f.write(json.dumps(entry, ensure_ascii=False) + "\n")
