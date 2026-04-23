@@ -1,4 +1,11 @@
 .env 
 Work Rights AI frontend/node_modules
+
 __pycache__/
 *.pyc
+
+logs/
+*.jsonl
+
+chroma_db/
+*.sqlite3
